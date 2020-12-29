@@ -23,7 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
     //Get Request For main Page
     app.get('/',function(req,res){
-      res.render('Login');
+      res.render('Login',{error:""});
     });
      
     //Post Request for login Main Page
@@ -33,11 +33,11 @@ app.use(express.static(path.join(__dirname, 'public')));
       var y=req.body.password;
       if(x==''||y==''){
         console.log("Empty Textbox");
-        //pop up Empty info
+        res.render('login',{error:"Please enter information"});
       }
       else if(check_credentials(x,y)==0){
         console.log("User does not exist");
-        //pop up user does not exist
+        res.render('login',{error:"User does not exist"});
       }
       else if(check_credentials(x,y)==1){
         console.log("username and passwords match");
@@ -45,11 +45,11 @@ app.use(express.static(path.join(__dirname, 'public')));
       }
       else if(check_credentials(x,y)==2){
         console.log("incorrect password");
-        //pop up incorrect password
+        res.render('login',{error:"incorrect password"});
       }
       else if(check_credentials(x,y)==3){
         console.log("username not registered");
-        //pop up username not registered in website
+        res.render('login',{error:"username not registered"});
       }
 
 
@@ -58,7 +58,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
       app.get('/registration', function(req,res){
-        res.render('registration');
+        res.render('registration',{error:""});
       });
       
 
@@ -70,7 +70,7 @@ app.use(express.static(path.join(__dirname, 'public')));
       if(x!='' && y!=''){
         if(check_username_exists(x)){
           console.log("Name already exists");
-          //pop up username already exists
+          res.render('registration', {error:"Username already taken"});
         }
 
        else if(file.toString()==''){
@@ -92,7 +92,7 @@ app.use(express.static(path.join(__dirname, 'public')));
         }
         
       else{
-        //pop up can not be empty
+        res.render('registration',{error:"please enter info"});
       }
       });
 
