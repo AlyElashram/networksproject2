@@ -39,4 +39,21 @@
         </div>
     </nav>
 </body>
+<div class="container1">
+    <% if(result.length!=0)
+    {
+        for(var i=0;i<result.length;i++){%>
+        <img src="<%=result[i].link%>" width="150" length="200">
+        <label style="color:white"class="ml-4 my-2"><%=result[i].name%></label>
+        <button onclick="location.href = '<%=result[i].href%>';" class="btn btn-secondary ml-3"> View </button>
+
+    <%}
+    }else{
+        %>
+    
+        <h5>No Results Found</h5>
+    <%}
+    %>
+
+</div>
 </html>

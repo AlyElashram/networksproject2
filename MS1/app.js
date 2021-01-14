@@ -68,59 +68,160 @@ app.use(session({
 
       //Post Method add Dunes to want to read List
       app.post("/addDunes",function(req,res){
-        
+        if(req.session.user===null){
+          res.redirect('/');
+        }
+        else{
         for(i in req.session.user.toreadlist ){
           if(req.session.user.toreadlist[i].name==='dune'){
             res.render('dune',{error:"Already on your to read list"});
             return;
           }
-          
-
         }
         
         var users=getUsers();
         for(i in users){
           if(users[i].username===req.session.user.username){
-            console.log({name:'dune',link:'./dune.jpg',href:'/dune'});
             users[i].toreadlist.push({name:'dune',link:'./dune.jpg',href:'/dune'});
             req.session.user=users[i];
             
           }
          
-
         }
         addUsers(users);
         res.render('dune',{error:"Added Successfuly"});
-
-
+      }
       })
       
       //Post Method add Flies to want to read list
       app.post("/addFlies",function(req,res){
+        if(req.session.user===null){
+          res.redirect('/');
+        }
+        else{
+        for(i in req.session.user.toreadlist ){
+          if(req.session.user.toreadlist[i].name==='flies'){
+            res.render('flies',{error:"Already on your to read list"});
+            return;
+          }
+          
+        }
+        
+        var users=getUsers();
+        for(i in users){
+          if(users[i].username===req.session.user.username){
+            users[i].toreadlist.push({name:'flies',link:'./flies.jpg',href:'/flies'});
+            req.session.user=users[i];
+          }
 
-
-
+        }
+        addUsers(users);
+        res.render('flies',{error:"Added Successfuly"});
+      }
       })
 
       //Post method add grapes to want to read list
       app.post("/addGrapes",function(req,res){
-
-
+        if(req.session.user===null){
+          res.redirect('/');
+        }
+        else{
+        for(i in req.session.user.toreadlist ){
+          if(req.session.user.toreadlist[i].name==='grapes'){
+            res.render('grapes',{error:"Already on your to read list"});
+            return;
+          }
+        }
         
+        var users=getUsers();
+        for(i in users){
+          if(users[i].username===req.session.user.username){
+            users[i].toreadlist.push({name:'grapes',link:'./grapes.jpg',href:'/grapes'});
+            req.session.user=users[i];
+            
+          }
+        }
+        addUsers(users);
+        res.render('grapes',{error:"Added Successfuly"});
+      }
       })
 
       //Post method add leaves to want to read list
       app.post("/addLeaves",function(req,res){
-
-
+        if(req.session.user===null){
+          res.redirect('/');
+        }
+        else{
+        for(i in req.session.user.toreadlist ){
+          if(req.session.user.toreadlist[i].name==='leaves'){
+            res.render('leaves',{error:"Already on your to read list"});
+            return;
+          }       
+        }
         
+        var users=getUsers();
+        for(i in users){
+          if(users[i].username===req.session.user.username){
+            users[i].toreadlist.push({name:'leaves',link:'./leaves.jpg',href:'/leaves'});
+            req.session.user=users[i];
+        
+          }
+         
+        }
+        addUsers(users);
+        res.render('leaves',{error:"Added Successfuly"});
+      }
       })
 
       //Post method add mockingbird to want to read list
       app.post("/addMockingBird",function(req,res){
-
-
+        if(req.session.user===null){
+          res.redirect('/');
+        }
+        else{
+        for(i in req.session.user.toreadlist ){
+          if(req.session.user.toreadlist[i].name==='mockingbird'){
+            res.render('mockingbird',{error:"Already on your to read list"});
+            return;
+          }
         
+        }
+        var users=getUsers();
+        for(i in users){
+          if(users[i].username===req.session.user.username){
+            users[i].toreadlist.push({name:'mockingbird',link:'./mockingbird.jpg',href:'/mockingbird'});
+            req.session.user=users[i];
+          }
+         
+        }
+        addUsers(users);
+        res.render('mockingbird',{error:"Added Successfuly"});
+      }
+      })
+
+      app.post("/addSun",function(req,res){
+        if(req.session.user===null){
+          res.redirect('/');
+        }
+        else{
+        for(i in req.session.user.toreadlist ){
+          if(req.session.user.toreadlist[i].name==='sun'){
+            res.render('sun',{error:"Already on your to read list"});
+            return;
+          }
+        
+        }
+        var users=getUsers();
+        for(i in users){
+          if(users[i].username===req.session.user.username){
+            users[i].toreadlist.push({name:'sun',link:'./sun.jpg',href:'/sun'});
+            req.session.user=users[i];
+          }
+         
+        }
+        addUsers(users);
+        res.render('sun',{error:"Added Successfuly"});
+      }
       })
 
 
@@ -177,11 +278,11 @@ app.use(session({
         });
         //get Request for novel 1
         app.get('/flies',function(req,res){
-          res.render('flies');
+          res.render('flies',{error:""});
         })
         //get Request for novel 2
         app.get('/grapes',function(req,res){
-          res.render('grapes');
+          res.render('grapes',{error:""});
         });
 
         
@@ -191,11 +292,11 @@ app.use(session({
         });
         //get Request for Poetry 1
         app.get('/leaves',function(req,res){
-          res.render('leaves');
+          res.render('leaves',{error:""});
         });
         //get Request for Poetry 2
         app.get('/sun',function(req,res){
-          res.render('sun');
+          res.render('sun',{error:""});
         });
 
         //get Request for Fiction
@@ -208,14 +309,40 @@ app.use(session({
         });
          //get Request for Fiction 2
          app.get('/mockingbird',function(req,res){
-          res.render('mockingbird');
+          res.render('mockingbird',{error:""});
         });
         
         //get Request for Reading list
         app.get('/readlist',function(req,res){
-          res.render('readlist')
-        });
+          if(req.session.user==null){
+              res.redirect('/')
+          }else{
+          var toread= req.session.user.toreadlist;
+          res.render('readlist',{toread})}
+      });
 
+          app.post('/search',function(req,res){
+            var searchtext= req.body.Search
+            var AllBooks = [{name:'Dune',link:'./dune.jpg',href:'/dune'},
+            {name:'Lord of the flies',link:'./flies.jpg',href:'/flies'},
+            {name:'Grapes of Wrath',link:'./grapes.jpg',href:'/grapes'} ,
+            {name:'Leaves of grass',link:'./leaves.jpg',href:'/leaves'},
+            {name:'To kill a mockingbird',link:'./mockingbird.jpg',href:'/mockingbird'}
+            ,{name:'The sun and her flowers',link:'./sun.jpg',href:'/sun'}
+            ]
+            var result=[]
+            for(var i=0;i<AllBooks.length;i++){
+                if(AllBooks[i].name.includes(searchtext)){
+                    result.push(AllBooks[i])
+                }
+            }
+           
+            res.render('searchresults',{result})
+            
+        });
+        app.get('/searchresults',function(req,res){
+          res.render('searchresults',{result})
+        })
 
         //Checks if the username already exists in the databases , returns true if it exists and false if it doesn't
         function check_username_exists(name){

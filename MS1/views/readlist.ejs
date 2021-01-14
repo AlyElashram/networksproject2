@@ -41,4 +41,21 @@
     </nav>
     
 </body>
+<div class="container1">
+    <% if(toread.length!=0)
+    {
+        for(var i=0;i<toread.length;i++){%>
+        <img src="<%=toread[i].link%>" width="150" length="200">
+        <label style="color:white"class="ml-4 my-2"><%=toread[i].name%></label>
+        <button onclick="location.href = '<%=toread[i].href%>';" class="btn btn-secondary ml-3"> View </button>
+
+    <%}
+    }else{
+        %>
+    
+        <h5>No Books Found</h5>
+    <%}
+    %>
+
+</div>
 </html>
